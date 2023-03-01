@@ -15,4 +15,6 @@ def load_jobs_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM jobs"))
         result_all = result.all()
+        print(result_all)
+        print(os.environ.get('DB_ACCESS_STRING'))
         return [dict(row) for row in result_all]
