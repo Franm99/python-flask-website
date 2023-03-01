@@ -17,3 +17,11 @@ def load_jobs_from_db():
         result_all = result.all()
         print("TYPE -------- ", type(result_all[0]))
         return [dict(row._mapping) for row in result_all]
+    
+
+def load_job_from_db(id):
+    with engine.connect() as conn:
+        result = conn.execute(text(f"SELECT * FROM jobs WHERE id = {id}"))
+        rows = result.all()
+        return dict(rows[0]._mapping) if len(rows) >= 0 else None
+        
