@@ -22,7 +22,7 @@ def list_applications():
     return jsonify(load_applications_from_db())
 
 
-@app.route("/job/<id>")
+@app.route("/job/<int:id>")
 def show_job(id):
     job = load_job_from_db(id)
     
@@ -32,7 +32,7 @@ def show_job(id):
     return render_template('jobpage.html', job=job, company_name=COMPANY_NAME)
 
 
-@app.route("/job/<id>/apply", methods=['post'])
+@app.route("/job/<int:id>/apply", methods=['post'])
 def apply_to_job(id):
     data = request.form
     job = load_job_from_db(id)
