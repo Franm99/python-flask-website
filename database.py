@@ -1,7 +1,9 @@
-from sqlalchemy import create_engine, text
 import os 
 
-db_connection_string = os.environ.get('DB_ACCESS_STRING')
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+
+load_dotenv()
 
 connect_args = {
     "ssl": {
@@ -9,7 +11,10 @@ connect_args = {
     }
 }
 
-engine = create_engine(db_connection_string, connect_args=connect_args)
+
+DB_CONNECTION_STRING = os.getenv('DB_CONNECTION_STRING')
+
+engine = create_engine(DB_CONNECTION_STRING, connect_args=connect_args)
 
 def load_jobs_from_db():
     with engine.connect() as conn:
