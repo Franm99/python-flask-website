@@ -40,16 +40,12 @@ def load_applications_from_db():
 def add_application_to_db(id, data):
     with engine.connect() as conn:
         
-        query = text(f"INSERT INTO applications (job_id, name, surname, email, linkedin_url, education, work_experience, resume_url) VALUES(:job_id, :name, :surname, :email, :linkedin_url, :education, :work_experience, :resume_url)")
+        data = data.to_dict()
+        data['job_id'] = id 
         
-        conn.execute(query,
-                     job_id=id,
-                     name=data['name'],
-                     surname=data['surname'],
-                     email=data['email'],
-                     linkedin_url=data['linkedin_url'],
-                     education=data['education'],
-                     work_experience=data['work_experience'],
-                     resume_url=data['resume_url'])
+        query = text("""INSERT INTO applications (job_id, name, surname, email, linkedin_url, education, work_experience, resume_url)
+                     VALUES(:job_id, :name, :surname, :email, :linkedin_url, :education, :work_experience, :resume_url)""")
+        
+        conn.execute(query, **data)
         
         
