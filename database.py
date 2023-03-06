@@ -33,6 +33,9 @@ def load_job_from_db(id):
 
 def add_application_to_db(job_id, data):
     with engine.connect() as conn:
+        print("job_id=", job_id)
+        print("data=", data)
+        
         query = text(f"""
                      INSERT INTO applications 
                      (job_id, name, surname, email, linkedin_url, education, work_experience, resume_url) 
